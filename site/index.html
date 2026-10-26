@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prince Kwarteng Amaning | Healthcare Data Science</title>
+  <meta name="description" content="Healthcare data science portfolio of Prince Kwarteng Amaning: leakage-free, calibrated and reproducible clinical models, from a background in dentistry and public health.">
+  <meta name="author" content="Prince Kwarteng Amaning">
+  <link rel="canonical" href="https://dexteramaning.github.io/">
+  <meta name="theme-color" content="#0b2545">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Prince Kwarteng Amaning">
+  <meta property="og:title" content="Prince Kwarteng Amaning | Healthcare Data Science">
+  <meta property="og:description" content="Leakage-free, calibrated and reproducible healthcare models, with limitations stated beside every result.">
+  <meta property="og:url" content="https://dexteramaning.github.io/">
+  <meta property="og:image" content="https://dexteramaning.github.io/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prince Kwarteng Amaning, healthcare data science portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/main.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Prince Kwarteng Amaning",
+    "url": "https://dexteramaning.github.io/",
+    "sameAs": ["https://www.linkedin.com/in/princeamaning", "https://github.com/DexterAmaning"],
+    "knowsAbout": ["Healthcare data science", "Clinical prediction models", "Model calibration", "Reproducible research", "Oral-systemic health"]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#13315c"/><path d="M6 17h5l2.5-6 4 11 2.5-5H26" fill="none" stroke="#5fd0c7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Prince Kwarteng Amaning<small>Healthcare data science</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <p class="eyebrow">Healthcare data science · Clinical background</p>
+        <h1 id="hero-title">Prince Kwarteng Amaning</h1>
+        <p class="lead">I build healthcare models from a background in dentistry and public health, and I hold them to the standard a clinician would: <strong>leakage-free evaluation, calibrated risk, limitations stated beside every result, and code anyone can re-run.</strong></p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">View case studies</a>
+          <a class="btn btn-ghost" href="https://github.com/DexterAmaning">GitHub profile</a>
+        </div>
+        <ul class="hero-facts">
+          <li><strong>MS in Data Science</strong>University of Michigan–Dearborn — in progress, expected April 2027</li>
+          <li><strong>Clinical foundation</strong>Background in dentistry and public health</li>
+          <li><strong>Open, reproducible work</strong>Public data with provenance, executed notebooks, pinned requirements and tests</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="projects" class="section" aria-labelledby="projects-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Case studies</p>
+          <h2 id="projects-title">Projects</h2>
+          <p>Each project states its data, its method, its results with uncertainty and the limits of what it shows. Every number below comes from the project's own documentation and executed notebook.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <span class="tag">Cardiology · Clinical prediction</span>
+            <h3><a href="projects/heart-disease-risk.html">Coronary artery disease risk model</a></h3>
+            <p>Calibrated logistic regression on the UCI Cleveland cohort, with a sensitivity-targeted threshold chosen inside training folds and checked on unseen patients.</p>
+            <ul class="metrics" aria-label="Key results">
+              <li>ROC-AUC <strong>0.907</strong></li>
+              <li>Sensitivity <strong>0.896</strong> at a 90% target</li>
+              <li>n = <strong>303</strong></li>
+            </ul>
+            <p class="card-foot" aria-hidden="true">Read the case study →</p>
+          </article>
+
+          <article class="card">
+            <span class="tag">Health economics · Time series</span>
+            <h3><a href="projects/medicaid-diabetes-spending.html">Medicaid spending on diabetes medicines</a></h3>
+            <p>Official CMS data, 2020–2024. GLP-1 receptor agonists rose from 19% to 53% of diabetes-medicine spending. A backtest found Prophet no better than a simple drift baseline.</p>
+            <ul class="metrics" aria-label="Key results">
+              <li>2024 spending <strong>$13.70bn</strong></li>
+              <li>Prophet 80% interval: <strong>0 of 10</strong> held-out values</li>
+            </ul>
+            <p class="card-foot" aria-hidden="true">Read the case study →</p>
+          </article>
+
+          <article class="card">
+            <span class="tag">Screening · Measurement validity</span>
+            <h3><a href="projects/autism-aq10-screening.html">AQ-10 autism screening: a label-leakage audit</a></h3>
+            <p>Shows that the dataset's ASD label is the questionnaire's own scoring rule, so “predicting autism” from it is circular, then asks what the data can answer.</p>
+            <ul class="metrics" aria-label="Key results">
+              <li>Label = scoring rule in <strong>704 of 704</strong> records</li>
+              <li>5-item short form sensitivity <strong>0.974</strong></li>
+            </ul>
+            <p class="card-foot" aria-hidden="true">Read the case study →</p>
+          </article>
+
+          <article class="card">
+            <span class="tag">Endocrinology · Clinical prediction</span>
+            <h3><a href="projects/diabetes-risk.html">Type 2 diabetes risk model</a></h3>
+            <p>Treats the Pima dataset's impossible zero values as missing, imputes inside folds, and shows that the default threshold misses 43% of women with diabetes.</p>
+            <ul class="metrics" aria-label="Key results">
+              <li>ROC-AUC <strong>0.832</strong></li>
+              <li>Sensitivity <strong>0.853</strong> at an 85% target</li>
+            </ul>
+            <p class="card-foot" aria-hidden="true">Read the case study →</p>
+          </article>
+
+          <article class="card">
+            <span class="tag">Oral-systemic health · Research prototype</span>
+            <h3><a href="projects/nkabom.html">NKABOM: oral-systemic research prototype</a></h3>
+            <p>A synthetic-data research prototype exploring whether a dental setting could run an explainable, auditable screening-and-referral workflow. Rule-based software; not clinically validated.</p>
+            <ul class="metrics" aria-label="Status">
+              <li><strong>Synthetic data only</strong></li>
+              <li><strong>Not for clinical use</strong></li>
+            </ul>
+            <p class="card-foot" aria-hidden="true">Read the overview →</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach" class="section section-alt" aria-labelledby="approach-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">How I work</p>
+          <h2 id="approach-title">Standards across these projects</h2>
+          <p>Accuracy on a single split is easy to report and easy to get wrong. These are the checks the projects apply instead, wherever they fit the question.</p>
+        </div>
+        <ul class="principles">
+          <li>
+            <h3>Leakage-free evaluation</h3>
+            <p>Imputation, scaling, encoding and threshold selection are fitted inside cross-validation folds, never on the full dataset.</p>
+          </li>
+          <li>
+            <h3>Calibration and operating points</h3>
+            <p>Predicted risks are checked against observed rates, and thresholds are set for a stated sensitivity target rather than for accuracy.</p>
+          </li>
+          <li>
+            <h3>Limitations beside results</h3>
+            <p>Each project names its population, its missing external validation and what it must not be used for.</p>
+          </li>
+          <li>
+            <h3>Honest negative results</h3>
+            <p>When a method doesn't beat a simple baseline, as Prophet didn't for Medicaid spending, the project says so.</p>
+          </li>
+          <li>
+            <h3>Reproducible by default</h3>
+            <p>Public data with provenance and checksums, executed notebooks, pinned requirements and automated tests.</p>
+          </li>
+          <li>
+            <h3>Documented self-correction</h3>
+            <p>Each public repository records what was wrong in its earlier version, such as an inverted target or placeholder data, and how it was fixed.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="container split">
+        <div class="prose">
+          <p class="eyebrow">About</p>
+          <h2 id="about-title">A clinical lens on healthcare data</h2>
+          <p>I come to data science from dentistry and public health. That background shapes how I read a dataset: what a variable means in the clinic, which values are physiologically impossible, and when a “prediction” is really a restatement of how the label was defined.</p>
+          <p>The projects on this site apply that lens to public datasets in cardiology, diabetes, autism screening and pharmaceutical spending. NKABOM extends it to oral-systemic health as a synthetic-data research prototype.</p>
+        </div>
+        <div>
+          <h3>Research interests</h3>
+          <ul>
+            <li>Oral-systemic health and the dental visit as a point of contact for health awareness (<a href="projects/nkabom.html">NKABOM</a>)</li>
+            <li>Evaluation and calibration of clinical prediction models (<a href="projects/heart-disease-risk.html">heart</a>, <a href="projects/diabetes-risk.html">diabetes</a>)</li>
+            <li>Validity of screening instruments and their labels (<a href="projects/autism-aq10-screening.html">AQ-10</a>)</li>
+            <li>Pharmaceutical spending and health economics (<a href="projects/medicaid-diabetes-spending.html">Medicaid</a>)</li>
+            <li>Responsible, reproducible healthcare data science (all projects)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section section-alt" aria-labelledby="education-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Education</p>
+          <h2 id="education-title">Education</h2>
+        </div>
+        <ul class="list-clean timeline">
+          <li>
+            <h3>MS in Data Science</h3>
+            <p>MS in Data Science, University of Michigan–Dearborn — in progress, expected April 2027.</p>
+          </li>
+          <li>
+            <h3>Dentistry and public health</h3>
+            <p>Background in dentistry and public health, before data science.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="skills" class="section" aria-labelledby="skills-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Skills</p>
+          <h2 id="skills-title">Skills, with the evidence</h2>
+          <p>Only skills that the public projects demonstrate are listed. Each group links to where it is shown.</p>
+        </div>
+        <div class="skill-groups">
+          <div class="skill-group">
+            <h3>Statistical modelling</h3>
+            <ul>
+              <li>Logistic regression and adjusted odds ratios</li>
+              <li>Random forest, gradient boosting, linear SVM</li>
+              <li>Time-series baselines and Prophet</li>
+            </ul>
+            <p class="evidence">Shown in: <a href="projects/heart-disease-risk.html">heart</a>, <a href="projects/diabetes-risk.html">diabetes</a>, <a href="projects/medicaid-diabetes-spending.html">Medicaid</a></p>
+          </div>
+          <div class="skill-group">
+            <h3>Model evaluation</h3>
+            <ul>
+              <li>Repeated stratified cross-validation (heart, diabetes, autism)</li>
+              <li>Bootstrap confidence intervals (heart, diabetes)</li>
+              <li>Calibration curves and Brier scores (heart, diabetes)</li>
+              <li>Sensitivity-targeted thresholds chosen inside training folds (heart, diabetes, autism)</li>
+              <li>Backtesting against naive and drift baselines (Medicaid)</li>
+            </ul>
+            <p class="evidence">Shown in: <a href="projects/heart-disease-risk.html">heart</a>, <a href="projects/diabetes-risk.html">diabetes</a>, <a href="projects/autism-aq10-screening.html">autism</a>, <a href="projects/medicaid-diabetes-spending.html">Medicaid</a></p>
+          </div>
+          <div class="skill-group">
+            <h3>Clinical and data judgement</h3>
+            <ul>
+              <li>Physiologically impossible values treated as missing</li>
+              <li>Label leakage and circular targets</li>
+              <li>Referral vs screening populations and predictive values</li>
+              <li>Gross vs net (pre-rebate) drug spending</li>
+            </ul>
+            <p class="evidence">Shown in: <a href="projects/autism-aq10-screening.html">autism</a>, <a href="projects/diabetes-risk.html">diabetes</a>, <a href="projects/medicaid-diabetes-spending.html">Medicaid</a></p>
+          </div>
+          <div class="skill-group">
+            <h3>Engineering and reproducibility</h3>
+            <ul>
+              <li>Python, pandas, NumPy, scikit-learn, statsmodels</li>
+              <li>pytest test suites and executed Jupyter notebooks</li>
+              <li>Pinned requirements, data checksums and provenance</li>
+              <li>Git and GitHub</li>
+            </ul>
+            <p class="evidence">Shown in: <a href="https://github.com/DexterAmaning">GitHub repositories</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section section-alt" aria-labelledby="contact-title">
+      <div class="container"><div class="prose">
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-title">Get in touch</h2>
+        <p>For research collaboration or healthcare data roles, connect on LinkedIn or see the code on GitHub.</p>
+        <ul class="footer-links">
+          <li><a href="https://www.linkedin.com/in/princeamaning">LinkedIn: princeamaning</a></li>
+          <li><a href="https://github.com/DexterAmaning">GitHub: DexterAmaning</a></li>
+        </ul>
+      </div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p><strong>Research and education only.</strong> Nothing on this site is a clinical, diagnostic or screening tool, and no model shown here has been clinically validated.</p>
+        <p>© 2026 Prince Kwarteng Amaning. All rights reserved.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="https://github.com/DexterAmaning">GitHub</a></li>
+        <li><a href="#main">Back to top</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,57 @@
+# GitHub Pages deployment. PREPARED, NOT ACTIVE.
+#
+# It only runs when started by hand (workflow_dispatch), and only after the owner
+# has enabled Pages with "Source: GitHub Actions" in the repository settings.
+# The gate job re-runs every check and fails while any content still awaits approval,
+# so a premature run cannot publish draft or unverified material. It also requires
+# preflight-stamp.json to match the committed files: the stamp is written only by a
+# successful local `npm run preflight`, which includes the private-term scan that CI
+# cannot run because the term list never leaves the owner's machine.
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: All checks plus the strict approval gate
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: npm run predeploy
+      - name: Content must match a successful local preflight
+        run: npm run check:stamp
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        with:
+          path: site
+
+  deploy:
+    needs: gate
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5

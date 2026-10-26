@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coronary Artery Disease Risk Model | Prince Kwarteng Amaning</title>
+  <meta name="description" content="A calibrated, leakage-free logistic regression for angiographic coronary artery disease on the UCI Cleveland data, with repeated cross-validation, confidence intervals and a sensitivity-targeted threshold.">
+  <meta name="author" content="Prince Kwarteng Amaning">
+  <link rel="canonical" href="https://dexteramaning.github.io/projects/heart-disease-risk.html">
+  <meta name="theme-color" content="#0b2545">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prince Kwarteng Amaning">
+  <meta property="og:title" content="Coronary artery disease risk model (UCI Cleveland)">
+  <meta property="og:description" content="Calibrated logistic regression with repeated cross-validation, confidence intervals and a sensitivity-targeted threshold. Research and education only.">
+  <meta property="og:url" content="https://dexteramaning.github.io/projects/heart-disease-risk.html">
+  <meta property="og:image" content="https://dexteramaning.github.io/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prince Kwarteng Amaning, healthcare data science portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#13315c"/><path d="M6 17h5l2.5-6 4 11 2.5-5H26" fill="none" stroke="#5fd0c7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Prince Kwarteng Amaning<small>Healthcare data science</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="../index.html#projects" aria-current="true">Projects</a></li>
+          <li><a href="../index.html#approach">Approach</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#education">Education</a></li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><span aria-current="page">Coronary artery disease</span></li>
+          </ol>
+        </nav>
+        <p class="eyebrow">Cardiology · Clinical prediction model</p>
+        <h1 id="page-title">Coronary artery disease risk model (UCI Cleveland)</h1>
+        <p class="finding">A calibrated logistic regression reached <strong>ROC-AUC 0.907 (95% CI 0.874–0.940)</strong> under repeated cross-validation and was at least as good as a random forest. Research and education only; not a clinical decision tool.</p>
+        <dl class="facts">
+          <div><dt>Data</dt><dd>UCI Heart Disease, Cleveland; n = 303 patients referred for angiography</dd></div>
+          <div><dt>Outcome</dt><dd>Any major vessel more than 50% narrowed</dd></div>
+          <div><dt>Method</dt><dd>Logistic regression vs random forest; stratified 5-fold CV ×20</dd></div>
+          <div><dt>Status</dt><dd>Research only; no external or clinical validation</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container project-layout">
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">On this page</h2>
+        <ol>
+          <li><a href="#question">The question</a></li>
+          <li><a href="#data">Data</a></li>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#limitations">Limitations</a></li>
+          <li><a href="#changes">What changed</a></li>
+          <li><a href="#reproduce">Reproduce</a></li>
+        </ol>
+      </nav>
+
+      <div class="project-body">
+        <section id="question" aria-labelledby="question-title">
+          <h2 id="question-title">The question</h2>
+          <div class="prose">
+            <p>For patients already referred for angiography, can routinely recorded clinical and exercise-test variables estimate the probability of coronary artery disease, and are those probabilities trustworthy enough to act on?</p>
+            <p>The project treats the model as a <strong>risk estimator</strong>, not a classifier. It reports discrimination with confidence intervals, checks calibration, and chooses an operating threshold for a stated sensitivity target, because in a referral setting a missed case matters more than a false alarm.</p>
+          </div>
+        </section>
+
+        <section id="data" aria-labelledby="data-title">
+          <h2 id="data-title">Data</h2>
+          <ul class="prose">
+            <li><strong>Source:</strong> the official UCI <code>processed.cleveland.data</code> file (Janosi, Steinbrunn, Pfisterer and Detrano, 1989), <a href="https://doi.org/10.24432/C52P4X">doi.org/10.24432/C52P4X</a>, licensed CC BY 4.0.</li>
+            <li><strong>Population:</strong> 303 patients referred for angiography at a single centre; disease prevalence 45.9%.</li>
+            <li><strong>Outcome:</strong> any major vessel more than 50% narrowed (<code>num &gt; 0</code>). Severity grades are collapsed to a binary outcome.</li>
+          </ul>
+        </section>
+
+        <section id="approach" aria-labelledby="approach-title">
+          <h2 id="approach-title">Approach</h2>
+          <ul class="prose">
+            <li><strong>Preprocessing inside a scikit-learn pipeline, fitted per fold:</strong> median imputation and scaling for continuous variables; mode imputation for binary variables; mode imputation and one-hot encoding for chest-pain type, resting ECG, ST slope and thallium result.</li>
+            <li><strong>Validation:</strong> repeated stratified cross-validation (5 folds ×20) with out-of-fold probabilities and percentile bootstrap confidence intervals.</li>
+            <li><strong>Operating point:</strong> a threshold for 90% sensitivity is chosen by inner cross-validation on each training fold only, then applied unchanged to the held-out patients.</li>
+            <li><strong>Calibration:</strong> calibration curve and Brier score, compared with a no-skill baseline.</li>
+          </ul>
+        </section>
+
+        <section id="results" aria-labelledby="results-title">
+          <h2 id="results-title">Results</h2>
+
+          <figure class="chart" aria-labelledby="auc-chart-title">
+            <p class="chart-title" id="auc-chart-title">Discrimination: ROC-AUC with 95% confidence interval</p>
+            <p class="chart-sub">Stratified 5-fold cross-validation ×20. The axis starts above zero to show the intervals.</p>
+            <div class="plot" style="--min:0.8;--max:1;--n:4" aria-hidden="true">
+              <div class="plot-row">
+                <span class="row-label"><strong>Logistic regression</strong> (primary)</span>
+                <div class="track">
+                  <span class="mark-ci s1" style="--lo:0.874;--hi:0.940"></span>
+                  <span class="mark-dot s1" style="--v:0.907" data-tip="Logistic regression: ROC-AUC 0.907 (0.874–0.940)"></span>
+                  <span class="mark-label" style="--v:0.940">0.907</span>
+                </div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">Random forest</span>
+                <div class="track">
+                  <span class="mark-ci s1" style="--lo:0.865;--hi:0.931"></span>
+                  <span class="mark-dot s1" style="--v:0.898" data-tip="Random forest: ROC-AUC 0.898 (0.865–0.931)"></span>
+                  <span class="mark-label" style="--v:0.931">0.898</span>
+                </div>
+              </div>
+              <div class="plot-row" data-trace="axis">
+                <span></span>
+                <div class="axis-ticks"><span style="--v:0.8">0.80</span><span style="--v:0.85">0.85</span><span style="--v:0.9">0.90</span><span style="--v:0.95">0.95</span><span style="--v:1">1.00</span></div>
+              </div>
+            </div>
+            <figcaption class="chart-sub">Logistic regression 0.907 (0.874–0.940) and random forest 0.898 (0.865–0.931). The intervals overlap almost entirely: the simpler model is at least as good. Exact values are in the table below.</figcaption>
+          </figure>
+
+          <div class="table-wrap" role="region" aria-labelledby="t-disc" tabindex="0">
+            <table>
+              <caption id="t-disc">Discrimination and overall accuracy (all preprocessing inside folds)</caption>
+              <thead><tr><th scope="col">Model</th><th scope="col" class="num">ROC-AUC (95% CI)</th><th scope="col" class="num">PR-AUC</th><th scope="col" class="num">Brier score</th></tr></thead>
+              <tbody>
+                <tr class="is-primary"><th scope="row">Logistic regression (primary)</th><td class="num">0.907 (0.874–0.940)</td><td class="num">0.899</td><td class="num">0.118</td></tr>
+                <tr><th scope="row">Random forest</th><td class="num">0.898 (0.865–0.931)</td><td class="num">0.891</td><td class="num">0.132</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="prose">For comparison, predicting the 45.9% prevalence for every patient gives a Brier score of 0.248.</p>
+
+          <h3>Operating points</h3>
+          <div class="table-wrap" role="region" aria-labelledby="t-ops" tabindex="0">
+            <table>
+              <caption id="t-ops">Logistic regression on held-out patients, mean over 20 repeats</caption>
+              <thead><tr><th scope="col">Threshold</th><th scope="col" class="num">Sensitivity</th><th scope="col" class="num">Specificity</th><th scope="col" class="num">PPV</th><th scope="col" class="num">NPV</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">0.5</th><td class="num">0.792</td><td class="num">0.886</td><td class="num">0.855</td><td class="num">0.834</td></tr>
+                <tr class="is-primary"><th scope="row">Set in training folds for 90% sensitivity</th><td class="num">0.896</td><td class="num">0.704</td><td class="num">0.720</td><td class="num">0.889</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="prose">On unseen patients the sensitivity-targeted threshold reached a mean sensitivity of 0.896, slightly below the 90% target. That is expected when a threshold tuned on training data is applied to new patients, and it is reported rather than hidden.</p>
+
+          <h3>Calibration</h3>
+          <figure class="figure narrow">
+            <img src="../assets/img/figures/heart-calibration.png" width="824" height="760" loading="lazy" decoding="async" alt="Calibration plot of observed disease rate against mean predicted risk, in five quantile bins. The logistic regression points lie close to the diagonal line of perfect calibration across the whole range. The random forest points stray further from the diagonal at the extremes, under-predicting at high risk and over-predicting at the lowest risk.">
+            <figcaption>Figure produced by the project notebook. Logistic regression's predicted risks closely track observed disease rates; the random forest is less well calibrated at the extremes.</figcaption>
+          </figure>
+
+          <h3>Adjusted odds ratios</h3>
+          <div class="table-wrap" role="region" aria-labelledby="t-or" tabindex="0">
+            <table>
+              <caption id="t-or">Selected adjusted odds ratios (complete cases, n = 297)</caption>
+              <thead><tr><th scope="col">Predictor</th><th scope="col" class="num">Odds ratio (95% CI)</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Vessels coloured on fluoroscopy (per SD)</th><td class="num">3.43 (2.05–5.73)</td></tr>
+                <tr><th scope="row">Reversible thallium defect (vs normal)</th><td class="num">4.03 (1.75–9.26)</td></tr>
+                <tr><th scope="row">Male sex</th><td class="num">4.69 (1.66–13.26)</td></tr>
+                <tr><th scope="row">Resting blood pressure (per SD)</th><td class="num">1.54 (1.04–2.28)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="prose">In this referral cohort, typical angina (0.12) and non-anginal pain (0.16) carry lower odds than an asymptomatic presentation, a referral-population pattern that wouldn't hold in screening. The full list, including ST slope, is in the <a href="https://github.com/DexterAmaning/heart-disease-risk-prediction#results">repository README</a>.</p>
+        </section>
+
+        <section id="limitations" class="limits" aria-labelledby="limitations-title">
+          <h2 id="limitations-title">Limitations and appropriate use</h2>
+          <ul>
+            <li><strong>Not clinically validated.</strong> This is a research and education project, not a clinical decision tool.</li>
+            <li><strong>Referral population with 46% prevalence.</strong> Predictive values and the chest-pain pattern don't transfer to screening or primary care.</li>
+            <li><strong>Single centre, 1980s data, n = 303, no external validation.</strong> The Hungarian, Swiss and VA cohorts in the same archive are the obvious next test.</li>
+            <li><strong>Specialist-test inputs.</strong> Fluoroscopy (<code>ca</code>) and thallium scan (<code>thal</code>) results come from specialist testing, so this is not a primary-care risk score.</li>
+            <li>Disease severity is collapsed to a binary outcome.</li>
+          </ul>
+        </section>
+
+        <section id="changes" aria-labelledby="changes-title">
+          <h2 id="changes-title">What changed from the earlier version</h2>
+          <div class="prose">
+            <p>The first version used a Kaggle <code>heart.csv</code> whose <strong>target is inverted relative to the UCI source</strong> (verified row by row), with renumbered chest-pain codes. Its README also described scaling, ROC-AUC evaluation and probability outputs that the code didn't perform. It was replaced with the analysis above on the official UCI data.</p>
+          </div>
+        </section>
+
+        <section id="reproduce" aria-labelledby="reproduce-title">
+          <h2 id="reproduce-title">Reproduce</h2>
+          <div class="prose">
+            <pre tabindex="0" role="region" aria-label="Reproduction commands"><code>python -m venv .venv
+.venv\Scripts\activate        # macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt
+pytest
+jupyter nbconvert --to notebook --execute --inplace notebooks/heart_disease_risk_model.ipynb</code></pre>
+            <ul>
+              <li><strong>Source code:</strong> <a href="https://github.com/DexterAmaning/heart-disease-risk-prediction">github.com/DexterAmaning/heart-disease-risk-prediction</a> (MIT licence)</li>
+              <li><strong>Notebook:</strong> <a href="https://github.com/DexterAmaning/heart-disease-risk-prediction/blob/main/notebooks/heart_disease_risk_model.ipynb">heart_disease_risk_model.ipynb</a></li>
+              <li><strong>Data provenance:</strong> <a href="https://github.com/DexterAmaning/heart-disease-risk-prediction/blob/main/data/README.md">data/README.md</a>; the UCI data is included in the repository</li>
+              <li><strong>Environment:</strong> Python 3.13 with pinned requirements and a pytest suite</li>
+              <li><strong>Version described here:</strong> commit <a href="https://github.com/DexterAmaning/heart-disease-risk-prediction/commit/2cee4db7ca00c522ec617141ef1aad7b9d6ea919"><code>2cee4db</code></a></li>
+            </ul>
+          </div>
+        </section>
+
+        <nav class="pager" aria-label="More projects">
+          <a href="nkabom.html"><span>Previous</span>NKABOM research prototype</a>
+          <a class="next" href="medicaid-diabetes-spending.html"><span>Next</span>Medicaid diabetes-medicine spending</a>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p><strong>Research and education only.</strong> Nothing on this site is a clinical, diagnostic or screening tool, and no model shown here has been clinically validated.</p>
+        <p>© 2026 Prince Kwarteng Amaning. All rights reserved.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="../index.html#projects">All projects</a></li>
+        <li><a href="https://github.com/DexterAmaning">GitHub</a></li>
+        <li><a href="#main">Back to top</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

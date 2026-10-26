@@ -1,0 +1,10 @@
+node_modules/
+docs/lighthouse/*.html
+
+# Internal review screenshots (they show approval placeholders). Kept locally, never published.
+docs/screenshots/
+
+# Private owner records live in ../portfolio-private, never here.
+DECISIONS*.md
+private-terms.txt
+private/

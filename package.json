@@ -1,0 +1,38 @@
+{
+  "name": "prince-amaning-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static professional portfolio for Prince Kwarteng Amaning. Plain HTML, CSS and a little JavaScript.",
+  "license": "SEE LICENSE IN COPYRIGHT.md",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check:html": "html-validate \"site/**/*.html\"",
+    "check:css": "stylelint \"site/assets/css/*.css\"",
+    "check:links": "node scripts/check-links.mjs",
+    "check:content": "node scripts/check-content.mjs",
+    "check:a11y": "node scripts/check-a11y.mjs",
+    "check:perf": "node scripts/check-perf.mjs",
+    "check:approvals": "node scripts/check-approvals.mjs",
+    "check:private": "node scripts/check-private.mjs",
+    "check": "npm run check:html && npm run check:css && npm run check:links && npm run check:content && npm run check:private && npm run check:a11y",
+    "predeploy": "npm run check && node scripts/check-approvals.mjs --strict",
+    "preflight": "npm run traceability && npm run predeploy && node scripts/check-private.mjs --require-terms && node scripts/preflight-stamp.mjs --write",
+    "check:stamp": "node scripts/preflight-stamp.mjs --verify",
+    "serve": "node scripts/serve.mjs",
+    "screenshots": "node scripts/screenshots.mjs",
+    "traceability": "node scripts/check-content.mjs --write-matrix"
+  },
+  "devDependencies": {
+    "@fontsource-variable/inter": "5.3.0",
+    "@fontsource-variable/source-serif-4": "5.3.1",
+    "axe-core": "4.13.0",
+    "html-validate": "11.16.2",
+    "lighthouse": "13.5.0",
+    "puppeteer-core": "25.13.0",
+    "stylelint": "17.15.0",
+    "stylelint-config-standard": "40.0.0"
+  }
+}

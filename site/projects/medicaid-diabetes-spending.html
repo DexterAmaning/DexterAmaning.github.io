@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medicaid Diabetes Drug Spending | Prince Kwarteng Amaning</title>
+  <meta name="description" content="Analysis of official CMS data on Medicaid spending on diabetes medicines, 2020–2024: the rise of GLP-1 receptor agonists, the 2024 fall in insulin spending, and a backtest showing Prophet adds nothing over a drift baseline.">
+  <meta name="author" content="Prince Kwarteng Amaning">
+  <link rel="canonical" href="https://dexteramaning.github.io/projects/medicaid-diabetes-spending.html">
+  <meta name="theme-color" content="#0b2545">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prince Kwarteng Amaning">
+  <meta property="og:title" content="Medicaid spending on diabetes medicines, 2020–2024">
+  <meta property="og:description" content="GLP-1 receptor agonists rose from 19% to 53% of Medicaid diabetes-medicine spending. An honest negative result on forecasting.">
+  <meta property="og:url" content="https://dexteramaning.github.io/projects/medicaid-diabetes-spending.html">
+  <meta property="og:image" content="https://dexteramaning.github.io/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prince Kwarteng Amaning, healthcare data science portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#13315c"/><path d="M6 17h5l2.5-6 4 11 2.5-5H26" fill="none" stroke="#5fd0c7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Prince Kwarteng Amaning<small>Healthcare data science</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="../index.html#projects" aria-current="true">Projects</a></li>
+          <li><a href="../index.html#approach">Approach</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#education">Education</a></li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><span aria-current="page">Medicaid diabetes spending</span></li>
+          </ol>
+        </nav>
+        <p class="eyebrow">Health economics · Time series</p>
+        <h1 id="page-title">Medicaid spending on diabetes medicines, 2020–2024</h1>
+        <p class="finding">Gross Medicaid spending on diabetes medicines rose from $7.78bn to $13.70bn. <strong>GLP-1 receptor agonists went from 19% to 53% of that spending</strong>, and a backtest showed that Prophet adds nothing over a simple drift baseline.</p>
+        <dl class="facts">
+          <div><dt>Data</dt><dd>CMS Medicaid Spending by Drug (data year 2024 release), national totals</dd></div>
+          <div><dt>Scope</dt><dd>Gross, pre-rebate spending, 2020–2024</dd></div>
+          <div><dt>Method</dt><dd>Drug-class grouping, growth decomposition, backtested forecasts</dd></div>
+          <div><dt>Status</dt><dd>Descriptive analysis; projections are scenarios, not forecasts</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container project-layout">
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">On this page</h2>
+        <ol>
+          <li><a href="#question">The question</a></li>
+          <li><a href="#data">Data</a></li>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#forecasting">Forecasting</a></li>
+          <li><a href="#limitations">Limitations</a></li>
+          <li><a href="#changes">What changed</a></li>
+          <li><a href="#reproduce">Reproduce</a></li>
+        </ol>
+      </nav>
+
+      <div class="project-body">
+        <section id="question" aria-labelledby="question-title">
+          <h2 id="question-title">The question</h2>
+          <div class="prose">
+            <p>Diabetes treatment has shifted towards newer branded medicines. How did that shift show up in Medicaid's spending, which drug classes drove it, did growth come from more prescriptions or costlier ones, and can a forecasting model predict where spending goes next?</p>
+          </div>
+        </section>
+
+        <section id="data" aria-labelledby="data-title">
+          <h2 id="data-title">Data</h2>
+          <ul class="prose">
+            <li><strong>Source:</strong> the official CMS <em>Medicaid Spending by Drug</em> file (data year 2024 release). It is a U.S. government work, committed to the repository and verified against a SHA-256 checksum.</li>
+            <li><strong>Rows used:</strong> national <code>Overall</code> rows only.</li>
+            <li><strong>Scope decision:</strong> obesity-labelled incretins (Wegovy, Zepbound, Saxenda) are reported separately and excluded from diabetes totals.</li>
+          </ul>
+        </section>
+
+        <section id="approach" aria-labelledby="approach-title">
+          <h2 id="approach-title">Approach</h2>
+          <ol class="prose">
+            <li>Verify the raw file against its checksum and keep the national rows.</li>
+            <li>Classify products into therapeutic classes from the generic name, with unit tests for the classification rules.</li>
+            <li>Reshape the year columns to long format and aggregate by class and year.</li>
+            <li>Decompose log spending growth exactly into a claim-volume part and a spending-per-claim part.</li>
+            <li>Backtest naive, drift, linear-trend and Prophet models: fit on 2020–2022, score on held-out 2023–2024.</li>
+          </ol>
+        </section>
+
+        <section id="results" aria-labelledby="results-title">
+          <h2 id="results-title">Results</h2>
+
+          <div class="table-wrap" role="region" aria-labelledby="t-key" tabindex="0">
+            <table>
+              <caption id="t-key">Gross Medicaid spending by class (before rebates)</caption>
+              <thead><tr><th scope="col">Class</th><th scope="col" class="num">2020</th><th scope="col" class="num">2024</th><th scope="col" class="num">CAGR</th></tr></thead>
+              <tbody>
+                <tr class="is-primary"><th scope="row">All diabetes medicines</th><td class="num">$7.78bn</td><td class="num">$13.70bn</td><td class="num">15.2%</td></tr>
+                <tr><th scope="row">GLP-1 / GIP-GLP-1 receptor agonists</th><td class="num">$1.50bn</td><td class="num">$7.21bn</td><td class="num">48.1%</td></tr>
+                <tr><th scope="row">SGLT2 inhibitors</th><td class="num">$0.81bn</td><td class="num">$3.34bn</td><td class="num">42.6%</td></tr>
+                <tr><th scope="row">Insulin</th><td class="num">$4.24bn</td><td class="num">$1.73bn</td><td class="num">−20.0%</td></tr>
+                <tr><th scope="row">Obesity-labelled incretins (excluded)</th><td class="num">$0.01bn</td><td class="num">$1.56bn</td><td class="num">n/a</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <figure class="chart" aria-labelledby="class-chart-title">
+            <p class="chart-title" id="class-chart-title">Spending by class, 2020 vs 2024 ($ billions, gross)</p>
+            <ul class="legend" aria-hidden="true">
+              <li><span class="swatch s2"></span>2020</li>
+              <li><span class="swatch s1"></span>2024</li>
+            </ul>
+            <div class="plot" style="--min:0;--max:8;--n:4" aria-hidden="true">
+              <div class="plot-row">
+                <span class="row-label"><strong>GLP-1 / GIP-GLP-1 RA</strong></span>
+                <div class="track">
+                  <span class="mark-link" style="--lo:1.50;--hi:7.21"></span>
+                  <span class="mark-dot s2" style="--v:1.50" data-tip="GLP-1 / GIP-GLP-1 RA, 2020: $1.50bn"></span>
+                  <span class="mark-dot s1" style="--v:7.21" data-tip="GLP-1 / GIP-GLP-1 RA, 2024: $7.21bn"></span>
+                  <span class="mark-label left minor" style="--v:1.50">$1.50bn</span>
+                  <span class="mark-label" style="--v:7.21">$7.21bn</span>
+                </div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">SGLT2 inhibitors</span>
+                <div class="track">
+                  <span class="mark-link" style="--lo:0.81;--hi:3.34"></span>
+                  <span class="mark-dot s2" style="--v:0.81" data-tip="SGLT2 inhibitors, 2020: $0.81bn"></span>
+                  <span class="mark-dot s1" style="--v:3.34" data-tip="SGLT2 inhibitors, 2024: $3.34bn"></span>
+                  <span class="mark-label left minor" style="--v:0.81">$0.81bn</span>
+                  <span class="mark-label" style="--v:3.34">$3.34bn</span>
+                </div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">Insulin</span>
+                <div class="track">
+                  <span class="mark-link" style="--lo:1.73;--hi:4.24"></span>
+                  <span class="mark-dot s2" style="--v:4.24" data-tip="Insulin, 2020: $4.24bn"></span>
+                  <span class="mark-dot s1" style="--v:1.73" data-tip="Insulin, 2024: $1.73bn"></span>
+                  <span class="mark-label left" style="--v:1.73">$1.73bn</span>
+                  <span class="mark-label minor" style="--v:4.24">$4.24bn</span>
+                </div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">Obesity-labelled incretins (excluded)</span>
+                <div class="track">
+                  <span class="mark-link" style="--lo:0.01;--hi:1.56"></span>
+                  <span class="mark-dot s2" style="--v:0.01" data-tip="Obesity-labelled incretins, 2020: $0.01bn"></span>
+                  <span class="mark-dot s1" style="--v:1.56" data-tip="Obesity-labelled incretins, 2024: $1.56bn"></span>
+                  <span class="mark-label" style="--v:1.56">$1.56bn</span>
+                </div>
+              </div>
+              <div class="plot-row" data-trace="axis">
+                <span></span>
+                <div class="axis-ticks"><span style="--v:0">$0</span><span style="--v:2">$2bn</span><span style="--v:4">$4bn</span><span style="--v:6">$6bn</span><span style="--v:8">$8bn</span></div>
+              </div>
+            </div>
+            <figcaption class="chart-sub">GLP-1 receptor agonists and SGLT2 inhibitors grew several-fold while insulin spending fell. Values are in the table above.</figcaption>
+          </figure>
+
+          <ul class="prose">
+            <li><strong>GLP-1 receptor agonists rose from 19% to 53% of diabetes-medicine spending.</strong> Most of the class's growth came from more claims rather than higher spending per claim.</li>
+            <li><strong>Diabetes spending peaked in 2023 ($14.82bn) and fell in 2024.</strong> The cause was insulin: gross spending fell 57% while claims fell 10.5%, consistent with the 2024 insulin list-price changes.</li>
+            <li>Across all classes, most growth came from higher <em>spending per claim</em>. That reflects a shift towards branded incretins, not price increases on the same products.</li>
+          </ul>
+
+          <figure class="figure">
+            <img src="../assets/img/figures/medicaid-growth-decomposition.png" width="1337" height="581" loading="lazy" decoding="async" alt="Horizontal bar chart splitting each drug class's change in log spending from 2020 to 2024 into a claim-volume part and a spending-per-claim part. For GLP-1 receptor agonists and SGLT2 inhibitors, the claim-volume bar is much the larger and both parts are positive. For insulin, both parts are negative, with the spending-per-claim fall the larger. For DPP-4 inhibitors, claim volume fell while spending per claim rose. For all diabetes medicines combined, the spending-per-claim part is larger than the claim-volume part.">
+            <figcaption>Figure produced by the project notebook: contribution of claim volume and spending per claim to the 2020–2024 change in log spending, by class.</figcaption>
+          </figure>
+        </section>
+
+        <section id="forecasting" aria-labelledby="forecasting-title">
+          <h2 id="forecasting-title">Forecasting: an honest negative result</h2>
+          <p class="prose">Each model was fitted on 2020–2022 and scored on the held-out 2023–2024 values.</p>
+
+          <figure class="chart" aria-labelledby="mape-chart-title">
+            <p class="chart-title" id="mape-chart-title">Backtest error: mean MAPE across 5 series (lower is better)</p>
+            <div class="plot plot-bars" style="--min:0;--max:40;--n:4" aria-hidden="true">
+              <div class="plot-row">
+                <span class="row-label"><strong>Drift</strong> (best)</span>
+                <div class="track"><span class="mark-bar s1" style="--v:24.3" data-tip="Drift: mean MAPE 24.3%"></span><span class="mark-label" style="--v:24.3">24.3%</span></div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">Linear trend</span>
+                <div class="track"><span class="mark-bar s1" style="--v:25.5" data-tip="Linear trend: mean MAPE 25.5%"></span><span class="mark-label" style="--v:25.5">25.5%</span></div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">Prophet (linear, no seasonality)</span>
+                <div class="track"><span class="mark-bar s1" style="--v:25.6" data-tip="Prophet: mean MAPE 25.6%"></span><span class="mark-label" style="--v:25.6">25.6%</span></div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">Naive (last value)</span>
+                <div class="track"><span class="mark-bar s1" style="--v:34.9" data-tip="Naive: mean MAPE 34.9%"></span><span class="mark-label" style="--v:34.9">34.9%</span></div>
+              </div>
+              <div class="plot-row" data-trace="axis">
+                <span></span>
+                <div class="axis-ticks"><span style="--v:0">0%</span><span style="--v:10">10%</span><span style="--v:20">20%</span><span style="--v:30">30%</span><span style="--v:40">40%</span></div>
+              </div>
+            </div>
+            <figcaption class="chart-sub">Prophet performs no better than a drift line. Values, including the all-diabetes total, are in the table below.</figcaption>
+          </figure>
+
+          <div class="table-wrap" role="region" aria-labelledby="t-bt" tabindex="0">
+            <table>
+              <caption id="t-bt">Backtest: fit 2020–2022, score 2023–2024</caption>
+              <thead><tr><th scope="col">Model</th><th scope="col" class="num">Mean MAPE across 5 series</th><th scope="col" class="num">MAPE, all-diabetes total</th></tr></thead>
+              <tbody>
+                <tr class="is-primary"><th scope="row">Drift</th><td class="num">24.3%</td><td class="num">10.9%</td></tr>
+                <tr><th scope="row">Linear trend</th><td class="num">25.5%</td><td class="num">10.9%</td></tr>
+                <tr><th scope="row">Prophet (linear, no seasonality)</th><td class="num">25.6%</td><td class="num">10.9%</td></tr>
+                <tr><th scope="row">Naive (last value)</th><td class="num">34.9%</td><td class="num">17.8%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="prose">
+            <p>With annual data Prophet has no seasonality to model, and three training points can't support any changepoints, so it reduces to a straight line and adds nothing over simple baselines. No model anticipated the 2024 fall in insulin spending. The notebook's 2025–2026 numbers are therefore presented as <strong>illustrative trend scenarios, not forecasts</strong>.</p>
+            <div class="notice notice-caution">
+              <p><strong>Why no uncertainty intervals are shown.</strong> In the same backtest, Prophet's 80% interval contained <strong>0 of the 10</strong> held-out values (5 series × 2 years). Its interval reflects only the scatter of three points around a line, not real forecast error, and five annual observations are too few to validate an interval from any method.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="limitations" class="limits" aria-labelledby="limitations-title">
+          <h2 id="limitations-title">Limitations and appropriate use</h2>
+          <ul>
+            <li><strong>Gross, pre-rebate spending.</strong> Medicaid rebates are large for brand-name drugs; net cost and its trend aren't observable here.</li>
+            <li><strong>No indication data.</strong> SGLT2 inhibitors are also used for heart failure and kidney disease.</li>
+            <li><strong>Five annual points.</strong> Too few to validate a forecasting model or a prediction interval. The backtest has only two held-out years per series, and its 10 held-out values aren't independent.</li>
+            <li><strong>National aggregates only,</strong> with no link to clinical outcomes.</li>
+          </ul>
+        </section>
+
+        <section id="changes" aria-labelledby="changes-title">
+          <h2 id="changes-title">What changed from the earlier version</h2>
+          <div class="prose">
+            <p>The earlier notebook loaded the CMS file but ran its trend analysis and Prophet forecasts on <strong>hand-typed placeholder numbers</strong>, and its README described SARIMAX and regression models that weren't implemented. It was replaced entirely; every reported figure is now computed from the CMS data.</p>
+          </div>
+        </section>
+
+        <section id="reproduce" aria-labelledby="reproduce-title">
+          <h2 id="reproduce-title">Reproduce</h2>
+          <div class="prose">
+            <pre tabindex="0" role="region" aria-label="Reproduction commands"><code>python -m venv .venv
+.venv\Scripts\activate        # macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt
+python scripts/download_data.py   # verifies the committed CMS file
+pytest
+jupyter nbconvert --to notebook --execute --inplace notebooks/medicaid_diabetes_spending.ipynb</code></pre>
+            <ul>
+              <li><strong>Source code:</strong> <a href="https://github.com/DexterAmaning/Forecasting-for-diabetes-using-prophet">github.com/DexterAmaning/Forecasting-for-diabetes-using-prophet</a> (MIT licence)</li>
+              <li><strong>Notebook:</strong> <a href="https://github.com/DexterAmaning/Forecasting-for-diabetes-using-prophet/blob/main/notebooks/medicaid_diabetes_spending.ipynb">medicaid_diabetes_spending.ipynb</a></li>
+              <li><strong>Data provenance:</strong> <a href="https://github.com/DexterAmaning/Forecasting-for-diabetes-using-prophet/blob/main/data/README.md">data/README.md</a></li>
+              <li><strong>Environment:</strong> Python 3.13 with pinned requirements and a pytest suite covering classification rules, transforms and the data checksum</li>
+              <li><strong>Version described here:</strong> commit <a href="https://github.com/DexterAmaning/Forecasting-for-diabetes-using-prophet/commit/f3696ec61c843de631e9c9d73cd016be9fe8c034"><code>f3696ec</code></a></li>
+            </ul>
+          </div>
+        </section>
+
+        <nav class="pager" aria-label="More projects">
+          <a href="heart-disease-risk.html"><span>Previous</span>Coronary artery disease risk model</a>
+          <a class="next" href="autism-aq10-screening.html"><span>Next</span>AQ-10 autism screening audit</a>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p><strong>Research and education only.</strong> Nothing on this site is a clinical, diagnostic or screening tool, and no model shown here has been clinically validated.</p>
+        <p>© 2026 Prince Kwarteng Amaning. All rights reserved.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="../index.html#projects">All projects</a></li>
+        <li><a href="https://github.com/DexterAmaning">GitHub</a></li>
+        <li><a href="#main">Back to top</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

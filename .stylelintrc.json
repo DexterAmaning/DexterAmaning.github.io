@@ -1,0 +1,9 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "value-keyword-case": ["lower", { "ignoreProperties": ["/^--font-/"] }],
+    "custom-property-empty-line-before": null,
+    "declaration-empty-line-before": null,
+    "no-descending-specificity": null
+  }
+}

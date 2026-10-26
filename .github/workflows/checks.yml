@@ -1,0 +1,32 @@
+# Runs every site check on push and pull request. It deploys nothing.
+name: Site checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: HTML, CSS, links, content traceability, privacy (generic), accessibility
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: npm run check
+      - name: List items awaiting approval (informational)
+        run: npm run check:approvals
+      - name: Preflight stamp status (informational; the Pages workflow enforces it)
+        run: npm run check:stamp || echo "Stamp missing or stale; run npm run preflight locally before deploying."

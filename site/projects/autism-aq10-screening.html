@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AQ-10 Autism Screening Audit | Prince Kwarteng Amaning</title>
+  <meta name="description" content="A re-analysis of the UCI Autism Screening Adult dataset showing that its ASD label is the AQ-10 scoring rule, plus a cross-validated short-form screen and a fairness caution about ethnicity.">
+  <meta name="author" content="Prince Kwarteng Amaning">
+  <link rel="canonical" href="https://dexteramaning.github.io/projects/autism-aq10-screening.html">
+  <meta name="theme-color" content="#0b2545">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prince Kwarteng Amaning">
+  <meta property="og:title" content="AQ-10 autism screening data: what machine learning can and can't learn">
+  <meta property="og:description" content="The dataset's ASD label is the questionnaire's own scoring rule, so predicting it is circular. What the data can answer instead.">
+  <meta property="og:url" content="https://dexteramaning.github.io/projects/autism-aq10-screening.html">
+  <meta property="og:image" content="https://dexteramaning.github.io/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prince Kwarteng Amaning, healthcare data science portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#13315c"/><path d="M6 17h5l2.5-6 4 11 2.5-5H26" fill="none" stroke="#5fd0c7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Prince Kwarteng Amaning<small>Healthcare data science</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="../index.html#projects" aria-current="true">Projects</a></li>
+          <li><a href="../index.html#approach">Approach</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#education">Education</a></li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><span aria-current="page">AQ-10 autism screening</span></li>
+          </ol>
+        </nav>
+        <p class="eyebrow">Screening · Measurement validity · Responsible AI</p>
+        <h1 id="page-title">AQ-10 autism screening data: what machine learning can and can't learn</h1>
+        <p class="finding">In the UCI <em>Autism Screening Adult</em> dataset, <strong>the ASD label is the questionnaire's own scoring rule</strong> in 704 of 704 records, so “predicting autism” from it is circular. The project then asks two questions the data can answer.</p>
+        <dl class="facts">
+          <div><dt>Data</dt><dd>UCI Autism Screening Adult; 704 AQ-10-Adult records from a screening app</dd></div>
+          <div><dt>Label</dt><dd>An AQ-10 screening result, not a clinical diagnosis</dd></div>
+          <div><dt>Method</dt><dd>Label audit; short-form cutoffs chosen inside training folds</dd></div>
+          <div><dt>Status</dt><dd>Research only; not a diagnostic or screening tool</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container project-layout">
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">On this page</h2>
+        <ol>
+          <li><a href="#question">The question</a></li>
+          <li><a href="#data">Data</a></li>
+          <li><a href="#label">The label is the rule</a></li>
+          <li><a href="#short-form">Short-form screens</a></li>
+          <li><a href="#background">Background factors</a></li>
+          <li><a href="#limitations">Limitations</a></li>
+          <li><a href="#changes">What changed</a></li>
+          <li><a href="#reproduce">Reproduce</a></li>
+        </ol>
+      </nav>
+
+      <div class="project-body">
+        <section id="question" aria-labelledby="question-title">
+          <h2 id="question-title">The question</h2>
+          <div class="prose">
+            <p>Many analyses of this dataset report high accuracy for “predicting autism”. Before modelling anything, a clinician would ask how the label was produced. Here the answer changes the whole project: the label is computed from the very items used as features.</p>
+            <p>So the project asks what the data <em>can</em> support: how short a screen can be without losing sensitivity against the full AQ-10, and whether background factors relate to a positive screen.</p>
+          </div>
+        </section>
+
+        <section id="data" aria-labelledby="data-title">
+          <h2 id="data-title">Data</h2>
+          <ul class="prose">
+            <li><strong>Source:</strong> Thabtah (2017), <em>Autism Screening Adult</em>, UCI Machine Learning Repository, <a href="https://doi.org/10.24432/C5F019">doi.org/10.24432/C5F019</a>, licensed CC BY 4.0.</li>
+            <li><strong>Records:</strong> 704 AQ-10-Adult screening records from the ASDTests app, ages 17–64.</li>
+            <li><strong>Who answered:</strong> 522 were self-completed, 87 were completed by a parent, relative, health care professional or other person, and 95 don't record who completed them.</li>
+          </ul>
+        </section>
+
+        <section id="label" aria-labelledby="label-title">
+          <h2 id="label-title">1. The label is the scoring rule</h2>
+          <div class="table-wrap" role="region" aria-labelledby="t-label" tabindex="0">
+            <table>
+              <caption id="t-label">Dataset label against AQ-10 total score (704 records)</caption>
+              <thead><tr><th scope="col">Label</th><th scope="col" class="num">Score 0–6</th><th scope="col" class="num">Score 7–10</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">ASD = NO</th><td class="num">515</td><td class="num">0</td></tr>
+                <tr><th scope="row">ASD = YES</th><td class="num">0</td><td class="num">189</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="prose">
+            <p>The label is YES exactly when the item sum is 7 or more. A depth-2 decision tree on the score reaches 100% cross-validated accuracy. Any model trained on the ten items is relearning a sum and a threshold, so the high accuracies commonly reported on this dataset <strong>aren't evidence of autism detection</strong>.</p>
+          </div>
+        </section>
+
+        <section id="short-form" aria-labelledby="short-title">
+          <h2 id="short-title">2. How short can the screen be?</h2>
+          <p class="prose">The reference standard is the full AQ-10 decision. For each short-form length, items are ranked and a cutoff is chosen <strong>inside each training fold</strong> to reach at least 95% sensitivity, then applied unchanged to the held-out fold (stratified 5-fold CV ×10, 50 test folds).</p>
+
+          <figure class="chart" aria-labelledby="sf-chart-title">
+            <p class="chart-title" id="sf-chart-title">Agreement with the full AQ-10 decision, by short-form length</p>
+            <p class="chart-sub">The axis starts above zero to separate the points.</p>
+            <ul class="legend" aria-hidden="true">
+              <li><span class="swatch s1"></span>Sensitivity</li>
+              <li><span class="swatch s2"></span>Specificity</li>
+            </ul>
+            <div class="plot" style="--min:0.7;--max:1;--n:3" aria-hidden="true">
+              <div class="plot-row">
+                <span class="row-label">4 items (cutoff ≥ 2)</span>
+                <div class="track">
+                  <span class="mark-link" style="--lo:0.749;--hi:0.994"></span>
+                  <span class="mark-dot s2" style="--v:0.749" data-tip="4 items: specificity 0.749"></span>
+                  <span class="mark-dot s1" style="--v:0.994" data-tip="4 items: sensitivity 0.994"></span>
+                </div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label"><strong>5 items (cutoff ≥ 3)</strong></span>
+                <div class="track">
+                  <span class="mark-link" style="--lo:0.854;--hi:0.974"></span>
+                  <span class="mark-dot s2" style="--v:0.854" data-tip="5 items: specificity 0.854"></span>
+                  <span class="mark-dot s1" style="--v:0.974" data-tip="5 items: sensitivity 0.974"></span>
+                  <span class="mark-label left minor" style="--v:0.854">0.854</span>
+                  <span class="mark-label" style="--v:0.974">0.974</span>
+                </div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">6 items (cutoff ≥ 4)</span>
+                <div class="track">
+                  <span class="mark-link" style="--lo:0.889;--hi:0.956"></span>
+                  <span class="mark-dot s2" style="--v:0.889" data-tip="6 items: specificity 0.889"></span>
+                  <span class="mark-dot s1" style="--v:0.956" data-tip="6 items: sensitivity 0.956"></span>
+                </div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">8 items (cutoff ≥ 5)</span>
+                <div class="track">
+                  <span class="mark-link" style="--lo:0.932;--hi:1"></span>
+                  <span class="mark-dot s2" style="--v:0.932" data-tip="8 items: specificity 0.932"></span>
+                  <span class="mark-dot s1" style="--v:1" data-tip="8 items: sensitivity 1.000"></span>
+                </div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">10 items, full AQ-10 (≥ 7)</span>
+                <div class="track">
+                  <span class="mark-dot s2" style="--v:1" data-tip="Full AQ-10: specificity 1.000"></span>
+                  <span class="mark-dot s1" style="--v:1" data-tip="Full AQ-10: sensitivity 1.000 (both points coincide)"></span>
+                </div>
+              </div>
+              <div class="plot-row" data-trace="axis">
+                <span></span>
+                <div class="axis-ticks"><span style="--v:0.7">0.70</span><span style="--v:0.8">0.80</span><span style="--v:0.9">0.90</span><span style="--v:1">1.00</span></div>
+              </div>
+            </div>
+            <figcaption class="chart-sub">Sensitivity stays near 1 at every length, while specificity rises as items are added. The full AQ-10 agrees with itself by definition. Exact values are in the table below.</figcaption>
+          </figure>
+
+          <div class="table-wrap" role="region" aria-labelledby="t-sf" tabindex="0">
+            <table>
+              <caption id="t-sf">Short-form screens against the full AQ-10 decision (held-out folds)</caption>
+              <thead><tr><th scope="col">Items</th><th scope="col">Usual cutoff</th><th scope="col" class="num">Sensitivity</th><th scope="col" class="num">Specificity</th><th scope="col" class="num">PPV</th><th scope="col" class="num">NPV</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">4</th><td>≥ 2</td><td class="num">0.994</td><td class="num">0.749</td><td class="num">0.594</td><td class="num">0.997</td></tr>
+                <tr class="is-primary"><th scope="row">5 (items 3, 4, 5, 6, 9)</th><td>≥ 3</td><td class="num">0.974</td><td class="num">0.854</td><td class="num">0.712</td><td class="num">0.989</td></tr>
+                <tr><th scope="row">6</th><td>≥ 4</td><td class="num">0.956</td><td class="num">0.889</td><td class="num">0.769</td><td class="num">0.983</td></tr>
+                <tr><th scope="row">8</th><td>≥ 5</td><td class="num">1.000</td><td class="num">0.932</td><td class="num">0.846</td><td class="num">1.000</td></tr>
+                <tr><th scope="row">10 (full AQ-10)</th><td>≥ 7</td><td class="num">1.000</td><td class="num">1.000</td><td class="num">1.000</td><td class="num">1.000</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <figure class="figure">
+            <img src="../assets/img/figures/autism-short-form-tradeoff.png" width="1329" height="641" loading="lazy" decoding="async" alt="Line chart of agreement with the full AQ-10 screen against the number of items in the short form, from 1 to 10, with a target sensitivity of 95 percent. Sensitivity stays close to 1 at every length. Specificity starts at zero for a single item, climbs steeply up to about five items, dips slightly at seven, and reaches 1 at the full ten items.">
+            <figcaption>Figure produced by the project notebook, covering every length from 1 to 10 items.</figcaption>
+          </figure>
+        </section>
+
+        <section id="background" aria-labelledby="background-title">
+          <h2 id="background-title">3. Do background factors predict a positive screen?</h2>
+          <div class="table-wrap" role="region" aria-labelledby="t-bg" tabindex="0">
+            <table>
+              <caption id="t-bg">Logistic regression without questionnaire items (class-weighted; preprocessing inside folds)</caption>
+              <thead><tr><th scope="col">Features</th><th scope="col" class="num">Mean ROC-AUC (5-fold ×10)</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Age, sex, jaundice, family history, prior app use, ethnicity</th><td class="num">0.728</td></tr>
+                <tr><th scope="row">The same, without ethnicity</th><td class="num">0.618</td></tr>
+                <tr><th scope="row">Ethnicity only</th><td class="num">0.705</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="prose">
+            <p>Family history of autism (47.3% vs 23.8% screen-positive) and neonatal jaundice (40.6% vs 25.4%) were associated with higher screen-positive rates. <strong>Most of the signal is ethnicity.</strong> That most plausibly reflects who used the app and cultural differences in answering self-report items: a caution about AQ-10 fairness across groups, not a usable predictor.</p>
+          </div>
+        </section>
+
+        <section id="limitations" class="limits" aria-labelledby="limitations-title">
+          <h2 id="limitations-title">Limitations and appropriate use</h2>
+          <ul>
+            <li><strong>Not a diagnostic tool, and not clinically validated.</strong> The label is an AQ-10 screening result, not a clinical diagnosis.</li>
+            <li><strong>No diagnoses in the data,</strong> so the AQ-10's own sensitivity and specificity against clinical assessment can't be estimated.</li>
+            <li><strong>Self-selected app users</strong> with a 26.8% screen-positive rate, far above population prevalence. PPV and NPV don't transfer to clinical settings.</li>
+            <li><strong>No external validation of the short form.</strong> Any short form would need testing against diagnostic assessment in a new sample.</li>
+            <li>Small ethnicity subgroups, and 95 records with ethnicity and respondent not reported. “Not reported” marks a data-collection gap, not an ethnic group.</li>
+            <li>Not all records are self-reports by adults: 87 were completed by someone else, and 18 respondents were aged 17.</li>
+          </ul>
+        </section>
+
+        <section id="changes" aria-labelledby="changes-title">
+          <h2 id="changes-title">What changed from the earlier version</h2>
+          <div class="prose">
+            <p>The earlier notebook used a synthetic 800-row Kaggle file and couldn't run top to bottom. It swapped training and test labels in one split, used a row ID as a feature, fitted encoders and SMOTE before cross-validation, and selected models by accuracy while claiming to prioritise recall. It also described an 80/20 class split as “reflecting real-world prevalence”, when adult autism prevalence is around 1–3%. It was replaced entirely.</p>
+          </div>
+        </section>
+
+        <section id="reproduce" aria-labelledby="reproduce-title">
+          <h2 id="reproduce-title">Reproduce</h2>
+          <div class="prose">
+            <pre tabindex="0" role="region" aria-label="Reproduction commands"><code>python -m venv .venv
+.venv\Scripts\activate        # macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt
+pytest
+jupyter nbconvert --to notebook --execute --inplace notebooks/aq10_screening_analysis.ipynb</code></pre>
+            <ul>
+              <li><strong>Source code:</strong> <a href="https://github.com/DexterAmaning/autism-screening-prediction">github.com/DexterAmaning/autism-screening-prediction</a> (MIT licence)</li>
+              <li><strong>Notebook:</strong> <a href="https://github.com/DexterAmaning/autism-screening-prediction/blob/main/notebooks/aq10_screening_analysis.ipynb">aq10_screening_analysis.ipynb</a></li>
+              <li><strong>Data provenance:</strong> <a href="https://github.com/DexterAmaning/autism-screening-prediction/blob/main/data/README.md">data/README.md</a>; the UCI data is included with a checksum</li>
+              <li><strong>Environment:</strong> Python 3.13 with pinned requirements and a pytest suite covering metrics, cutoff selection, the label rule and the data checksum</li>
+              <li><strong>Version described here:</strong> commit <a href="https://github.com/DexterAmaning/autism-screening-prediction/commit/47172738bc3b00d89b383d1183f840adc9937f35"><code>4717273</code></a></li>
+            </ul>
+          </div>
+        </section>
+
+        <nav class="pager" aria-label="More projects">
+          <a href="medicaid-diabetes-spending.html"><span>Previous</span>Medicaid diabetes-medicine spending</a>
+          <a class="next" href="diabetes-risk.html"><span>Next</span>Type 2 diabetes risk model</a>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p><strong>Research and education only.</strong> Nothing on this site is a clinical, diagnostic or screening tool, and no model shown here has been clinically validated.</p>
+        <p>© 2026 Prince Kwarteng Amaning. All rights reserved.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="../index.html#projects">All projects</a></li>
+        <li><a href="https://github.com/DexterAmaning">GitHub</a></li>
+        <li><a href="#main">Back to top</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

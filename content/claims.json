@@ -1,0 +1,40 @@
+{
+  "_comment": "Key non-decimal claims. Each 'text' must appear on the page and each 'sourceText' in the named README snapshot. Decimals and percentages are checked automatically by scripts/check-content.mjs.",
+  "claims": [
+    { "page": "index.html", "text": "704 of 704", "source": "autism", "sourceText": "704 of 704" },
+    { "page": "index.html", "text": "n = 303", "source": "heart", "sourceText": "in 303 patients" },
+    { "page": "index.html", "text": "0 of 10", "source": "medicaid", "sourceText": "0 of the 10" },
+    { "page": "index.html", "text": "Background in dentistry and public health", "source": "heart", "sourceText": "Background in dentistry and public health" },
+
+    { "page": "projects/heart-disease-risk.html", "text": "303 patients referred for angiography", "source": "heart", "sourceText": "303 patients referred for angiography" },
+    { "page": "projects/heart-disease-risk.html", "text": "stratified 5-fold CV ×20", "source": "heart", "sourceText": "stratified 5-fold CV ×20" },
+    { "page": "projects/heart-disease-risk.html", "text": "n = 297", "source": "heart", "sourceText": "n = 297" },
+    { "page": "projects/heart-disease-risk.html", "text": "target is inverted relative to the UCI source", "source": "heart", "sourceText": "target is inverted relative to the UCI source" },
+    { "page": "projects/heart-disease-risk.html", "text": "doi.org/10.24432/C52P4X", "source": "heart", "sourceText": "https://doi.org/10.24432/C52P4X" },
+    { "page": "projects/heart-disease-risk.html", "text": "Hungarian, Swiss and VA cohorts", "source": "heart", "sourceText": "Hungarian, Swiss and VA cohorts" },
+
+    { "page": "projects/medicaid-diabetes-spending.html", "text": "0 of the 10", "source": "medicaid", "sourceText": "0 of the 10" },
+    { "page": "projects/medicaid-diabetes-spending.html", "text": "hand-typed placeholder numbers", "source": "medicaid", "sourceText": "hand-typed placeholder numbers" },
+    { "page": "projects/medicaid-diabetes-spending.html", "text": "Wegovy, Zepbound, Saxenda", "source": "medicaid", "sourceText": "Wegovy, Zepbound, Saxenda" },
+    { "page": "projects/medicaid-diabetes-spending.html", "text": "illustrative trend scenarios, not forecasts", "source": "medicaid", "sourceText": "illustrative trend scenarios, not forecasts" },
+    { "page": "projects/medicaid-diabetes-spending.html", "text": "consistent with the 2024 insulin list-price changes", "source": "medicaid", "sourceText": "consistent with the 2024 insulin list-price changes" },
+    { "page": "projects/medicaid-diabetes-spending.html", "text": "Mean MAPE across 5 series", "source": "medicaid", "sourceText": "Mean MAPE across 5 series" },
+
+    { "page": "projects/autism-aq10-screening.html", "text": "704 of 704", "source": "autism", "sourceText": "704 of 704" },
+    { "page": "projects/autism-aq10-screening.html", "text": "522 were self-completed", "source": "autism", "sourceText": "522 were self-completed" },
+    { "page": "projects/autism-aq10-screening.html", "text": "87 were completed by a parent, relative, health care professional or other person", "source": "autism", "sourceText": "87 were completed by a parent, relative, health care professional or other person" },
+    { "page": "projects/autism-aq10-screening.html", "text": "95 don't record who completed them", "source": "autism", "sourceText": "95 don't record who completed them" },
+    { "page": "projects/autism-aq10-screening.html", "text": "50 test folds", "source": "autism", "sourceText": "50 test folds" },
+    { "page": "projects/autism-aq10-screening.html", "text": "items 3, 4, 5, 6, 9", "source": "autism", "sourceText": "items 3, 4, 5, 6, 9" },
+    { "page": "projects/autism-aq10-screening.html", "text": "18 respondents were aged 17", "source": "autism", "sourceText": "18 respondents were aged 17" },
+    { "page": "projects/autism-aq10-screening.html", "text": "synthetic 800-row Kaggle file", "source": "autism", "sourceText": "synthetic 800-row Kaggle file" },
+    { "page": "projects/autism-aq10-screening.html", "text": "doi.org/10.24432/C5F019", "source": "autism", "sourceText": "https://doi.org/10.24432/C5F019" },
+
+    { "page": "projects/diabetes-risk.html", "text": "768 Pima Indian women", "source": "diabetes", "sourceText": "768 Pima Indian women" },
+    { "page": "projects/diabetes-risk.html", "text": "n = 724 complete cases", "source": "diabetes", "sourceText": "n = 724 complete cases" },
+    { "page": "projects/diabetes-risk.html", "text": "Glucose (5), BloodPressure (35), SkinThickness (227), Insulin (374) and BMI (11)", "source": "diabetes", "sourceText": "Glucose (5), BloodPressure (35), SkinThickness (227), Insulin (374) and BMI (11)" },
+    { "page": "projects/diabetes-risk.html", "text": "misses 43% of women with diabetes", "source": "diabetes", "sourceText": "43% of women with diabetes" },
+    { "page": "projects/diabetes-risk.html", "text": "OpenML (dataset 37)", "source": "diabetes", "sourceText": "OpenML (dataset 37" },
+    { "page": "projects/diabetes-risk.html", "text": "Glucose (2-hour OGTT)", "source": "diabetes", "sourceText": "`Glucose` is the 2-hour oral glucose tolerance test value" }
+  ]
+}

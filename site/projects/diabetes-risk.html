@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Type 2 Diabetes Risk Model (Pima) | Prince Kwarteng Amaning</title>
+  <meta name="description" content="A leakage-free, calibrated diabetes risk model on the Pima Indians Diabetes data: impossible zeros treated as missing, repeated cross-validation, sensitivity-targeted thresholds and adjusted odds ratios.">
+  <meta name="author" content="Prince Kwarteng Amaning">
+  <link rel="canonical" href="https://dexteramaning.github.io/projects/diabetes-risk.html">
+  <meta name="theme-color" content="#0b2545">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prince Kwarteng Amaning">
+  <meta property="og:title" content="Type 2 diabetes risk model (Pima Indians Diabetes data)">
+  <meta property="og:description" content="Leakage-free and calibrated, with an operating point chosen for sensitivity. The default threshold misses 43% of women with diabetes.">
+  <meta property="og:url" content="https://dexteramaning.github.io/projects/diabetes-risk.html">
+  <meta property="og:image" content="https://dexteramaning.github.io/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prince Kwarteng Amaning, healthcare data science portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#13315c"/><path d="M6 17h5l2.5-6 4 11 2.5-5H26" fill="none" stroke="#5fd0c7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Prince Kwarteng Amaning<small>Healthcare data science</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="../index.html#projects" aria-current="true">Projects</a></li>
+          <li><a href="../index.html#approach">Approach</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#education">Education</a></li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><span aria-current="page">Type 2 diabetes risk</span></li>
+          </ol>
+        </nav>
+        <p class="eyebrow">Endocrinology · Clinical prediction model</p>
+        <h1 id="page-title">Type 2 diabetes risk model (Pima Indians Diabetes data)</h1>
+        <p class="finding">Logistic regression reached <strong>ROC-AUC 0.832 (95% CI 0.807–0.864)</strong>, and more complex models didn't help. At the default threshold the model <strong>misses 43% of women with diabetes</strong>, which the earlier version's 77% accuracy figure hid.</p>
+        <dl class="facts">
+          <div><dt>Data</dt><dd>Pima Indians Diabetes Database (NIDDK) via OpenML; n = 768 women</dd></div>
+          <div><dt>Outcome</dt><dd>Diabetes, with a prevalence of 34.9%</dd></div>
+          <div><dt>Method</dt><dd>Logistic regression, linear SVM, gradient boosting; stratified 5-fold CV ×20</dd></div>
+          <div><dt>Status</dt><dd>Research only; no external or clinical validation</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container project-layout">
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">On this page</h2>
+        <ol>
+          <li><a href="#question">The question</a></li>
+          <li><a href="#data">Data</a></li>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#limitations">Limitations</a></li>
+          <li><a href="#changes">What changed</a></li>
+          <li><a href="#reproduce">Reproduce</a></li>
+        </ol>
+      </nav>
+
+      <div class="project-body">
+        <section id="question" aria-labelledby="question-title">
+          <h2 id="question-title">The question</h2>
+          <div class="prose">
+            <p>The Pima data is a common machine-learning teaching dataset. Several of its columns record physiologically impossible zeros, such as a blood pressure or BMI of zero. Treated as real values, as the earlier version of this project did, they quietly distort a model.</p>
+            <p>This project asks what an honest model on this data looks like: impossible values handled as missing, every preprocessing step kept inside cross-validation folds, and results reported as risks and operating points rather than a single accuracy figure.</p>
+          </div>
+        </section>
+
+        <section id="data" aria-labelledby="data-title">
+          <h2 id="data-title">Data</h2>
+          <ul class="prose">
+            <li><strong>Source:</strong> the Pima Indians Diabetes Database (NIDDK), via OpenML (dataset 37), included in the repository with checksums. OpenML lists its licence only as “Public”, not as a named licence.</li>
+            <li><strong>Population:</strong> 768 Pima Indian women aged 21 or older; diabetes prevalence 34.9%.</li>
+            <li><strong>Impossible zeros:</strong> Glucose (5), BloodPressure (35), SkinThickness (227), Insulin (374) and BMI (11).</li>
+          </ul>
+        </section>
+
+        <section id="approach" aria-labelledby="approach-title">
+          <h2 id="approach-title">Approach</h2>
+          <ul class="prose">
+            <li><strong>Zeros are missing values:</strong> converted to missing, then median-imputed with missingness indicators <strong>inside each training fold</strong>.</li>
+            <li><strong>Models:</strong> logistic regression (primary), a linear SVM (the original project's model family) and gradient boosting.</li>
+            <li><strong>Validation:</strong> repeated stratified cross-validation (5 folds ×20) with out-of-fold probabilities, percentile bootstrap confidence intervals, Brier score and a calibration curve.</li>
+            <li><strong>Threshold selection:</strong> a threshold for 85% sensitivity is chosen by inner cross-validation on each training fold and applied unchanged to the test fold.</li>
+          </ul>
+        </section>
+
+        <section id="results" aria-labelledby="results-title">
+          <h2 id="results-title">Results</h2>
+
+          <figure class="chart" aria-labelledby="auc-chart-title">
+            <p class="chart-title" id="auc-chart-title">Discrimination: ROC-AUC with 95% confidence interval</p>
+            <p class="chart-sub">Stratified 5-fold cross-validation ×20. The axis starts above zero to show the intervals.</p>
+            <div class="plot" style="--min:0.75;--max:0.9;--n:3" aria-hidden="true">
+              <div class="plot-row">
+                <span class="row-label"><strong>Logistic regression</strong> (primary)</span>
+                <div class="track">
+                  <span class="mark-ci s1" style="--lo:0.807;--hi:0.864"></span>
+                  <span class="mark-dot s1" style="--v:0.832" data-tip="Logistic regression: ROC-AUC 0.832 (0.807–0.864)"></span>
+                  <span class="mark-label" style="--v:0.864">0.832</span>
+                </div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">Linear SVM</span>
+                <div class="track">
+                  <span class="mark-ci s1" style="--lo:0.807;--hi:0.865"></span>
+                  <span class="mark-dot s1" style="--v:0.835" data-tip="Linear SVM: ROC-AUC 0.835 (0.807–0.865)"></span>
+                  <span class="mark-label" style="--v:0.865">0.835</span>
+                </div>
+              </div>
+              <div class="plot-row">
+                <span class="row-label">Gradient boosting</span>
+                <div class="track">
+                  <span class="mark-ci s1" style="--lo:0.793;--hi:0.853"></span>
+                  <span class="mark-dot s1" style="--v:0.826" data-tip="Gradient boosting: ROC-AUC 0.826 (0.793–0.853)"></span>
+                  <span class="mark-label" style="--v:0.853">0.826</span>
+                </div>
+              </div>
+              <div class="plot-row" data-trace="axis">
+                <span></span>
+                <div class="axis-ticks"><span style="--v:0.75">0.75</span><span style="--v:0.8">0.80</span><span style="--v:0.85">0.85</span><span style="--v:0.9">0.90</span></div>
+              </div>
+            </div>
+            <figcaption class="chart-sub">All three models overlap almost completely: model complexity doesn't help. Exact values are in the table below.</figcaption>
+          </figure>
+
+          <div class="table-wrap" role="region" aria-labelledby="t-disc" tabindex="0">
+            <table>
+              <caption id="t-disc">Discrimination and overall accuracy (imputation and scaling fitted inside folds)</caption>
+              <thead><tr><th scope="col">Model</th><th scope="col" class="num">ROC-AUC (95% CI)</th><th scope="col" class="num">PR-AUC</th><th scope="col" class="num">Brier</th><th scope="col" class="num">Accuracy at 0.5</th></tr></thead>
+              <tbody>
+                <tr class="is-primary"><th scope="row">Logistic regression (primary)</th><td class="num">0.832 (0.807–0.864)</td><td class="num">0.708</td><td class="num">0.158</td><td class="num">0.771</td></tr>
+                <tr><th scope="row">Linear SVM</th><td class="num">0.835 (0.807–0.865)</td><td class="num">0.713</td><td class="num">0.156</td><td class="num">0.772</td></tr>
+                <tr><th scope="row">Gradient boosting</th><td class="num">0.826 (0.793–0.853)</td><td class="num">0.690</td><td class="num">0.162</td><td class="num">0.759</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="prose">Baselines: a Brier score of 0.227 for predicting the 34.9% prevalence for everyone, and an accuracy of 0.651 for always predicting “no diabetes”.</p>
+
+          <h3>Operating points</h3>
+          <div class="table-wrap" role="region" aria-labelledby="t-ops" tabindex="0">
+            <table>
+              <caption id="t-ops">Logistic regression on held-out women, mean of 20 repeats</caption>
+              <thead><tr><th scope="col">Threshold</th><th scope="col" class="num">Sensitivity</th><th scope="col" class="num">Specificity</th><th scope="col" class="num">PPV</th><th scope="col" class="num">NPV</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">0.5</th><td class="num">0.572</td><td class="num">0.878</td><td class="num">0.716</td><td class="num">0.793</td></tr>
+                <tr class="is-primary"><th scope="row">Set in training folds for 85% sensitivity</th><td class="num">0.853</td><td class="num">0.626</td><td class="num">0.550</td><td class="num">0.888</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="prose">At the default threshold the model misses 43% of women with diabetes. For screening, the sensitivity-targeted threshold met its target on unseen data, at the cost of more false positives.</p>
+
+          <h3>Calibration</h3>
+          <figure class="figure narrow">
+            <img src="../assets/img/figures/diabetes-calibration.png" width="824" height="760" loading="lazy" decoding="async" alt="Calibration plot of observed diabetes rate against mean predicted risk, in ten quantile bins. Logistic regression points follow the diagonal of perfect calibration fairly closely, slightly over-predicting at the lowest and highest risks. Gradient boosting points scatter more widely around the diagonal, under-predicting at low risk and over-predicting in the upper-middle range.">
+            <figcaption>Figure produced by the project notebook: out-of-fold calibration for logistic regression and gradient boosting.</figcaption>
+          </figure>
+
+          <h3>Adjusted odds ratios</h3>
+          <div class="table-wrap" role="region" aria-labelledby="t-or" tabindex="0">
+            <table>
+              <caption id="t-or">Adjusted odds ratios per SD (n = 724 complete cases; insulin and skinfold excluded for missingness)</caption>
+              <thead><tr><th scope="col">Predictor</th><th scope="col" class="num">Odds ratio (95% CI)</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Glucose (2-hour OGTT)</th><td class="num">2.95 (CI in the repository README)</td></tr>
+                <tr><th scope="row">BMI</th><td class="num">1.87 (1.51–2.31)</td></tr>
+                <tr><th scope="row">Pregnancies</th><td class="num">1.49 (1.19–1.85)</td></tr>
+                <tr><th scope="row">Diabetes pedigree function</th><td class="num">1.38 (1.13–1.68)</td></tr>
+                <tr><th scope="row">Age</th><td class="num">1.22 (0.97–1.53)</td></tr>
+                <tr><th scope="row">Diastolic blood pressure</th><td class="num">0.90 (0.73–1.10)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="prose">A four-variable model (glucose, BMI, age and pedigree) reaches ROC-AUC 0.827, nearly matching the full model.</p>
+        </section>
+
+        <section id="limitations" class="limits" aria-labelledby="limitations-title">
+          <h2 id="limitations-title">Limitations and appropriate use</h2>
+          <ul>
+            <li><strong>Not clinically validated.</strong> This is a research and education project, not a clinical screening tool.</li>
+            <li><strong>One specific population</strong> (Pima Indian women aged 21 or older), with no external validation.</li>
+            <li><strong>Glucose is the 2-hour oral glucose tolerance test value,</strong> which is part of the diagnostic criterion. This is closer to diagnostic classification than to predicting future diabetes.</li>
+            <li>Insulin is missing for 49% of women and skinfold for 30%. Multiple imputation would be more rigorous than median imputation.</li>
+          </ul>
+        </section>
+
+        <section id="changes" aria-labelledby="changes-title">
+          <h2 id="changes-title">What changed from the earlier version</h2>
+          <div class="prose">
+            <p>The earlier notebook kept impossible zeros as real values, fitted the scaler on all the data before splitting, reported only single-split accuracy, and showed a hand-drawn “key predictors” chart that no analysis had produced. All of this was replaced with the analysis above.</p>
+          </div>
+        </section>
+
+        <section id="reproduce" aria-labelledby="reproduce-title">
+          <h2 id="reproduce-title">Reproduce</h2>
+          <div class="prose">
+            <pre tabindex="0" role="region" aria-label="Reproduction commands"><code>python -m venv .venv
+.venv\Scripts\activate        # macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt
+pytest
+jupyter nbconvert --to notebook --execute --inplace notebooks/diabetes_risk_model.ipynb</code></pre>
+            <ul>
+              <li><strong>Source code:</strong> <a href="https://github.com/DexterAmaning/Diabtetes">github.com/DexterAmaning/Diabtetes</a> (MIT licence; the repository name keeps its original spelling)</li>
+              <li><strong>Notebook:</strong> <a href="https://github.com/DexterAmaning/Diabtetes/blob/main/notebooks/diabetes_risk_model.ipynb">diabetes_risk_model.ipynb</a> (about 2 minutes to run on a laptop)</li>
+              <li><strong>Data provenance:</strong> <a href="https://github.com/DexterAmaning/Diabtetes/blob/main/data/README.md">data/README.md</a></li>
+              <li><strong>Environment:</strong> Python 3.13 with pinned requirements and a pytest suite</li>
+              <li><strong>Version described here:</strong> commit <a href="https://github.com/DexterAmaning/Diabtetes/commit/69fc039b1d36c896afb4b77b48689f8339f1d8b4"><code>69fc039</code></a></li>
+            </ul>
+          </div>
+        </section>
+
+        <nav class="pager" aria-label="More projects">
+          <a href="autism-aq10-screening.html"><span>Previous</span>AQ-10 autism screening audit</a>
+          <a class="next" href="nkabom.html"><span>Next</span>NKABOM research prototype</a>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p><strong>Research and education only.</strong> Nothing on this site is a clinical, diagnostic or screening tool, and no model shown here has been clinically validated.</p>
+        <p>© 2026 Prince Kwarteng Amaning. All rights reserved.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="../index.html#projects">All projects</a></li>
+        <li><a href="https://github.com/DexterAmaning">GitHub</a></li>
+        <li><a href="#main">Back to top</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

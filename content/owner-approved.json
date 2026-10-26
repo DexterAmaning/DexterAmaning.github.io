@@ -1,0 +1,12 @@
+{
+  "_comment": "Public statements approved by the site owner that don't come from a project README. scripts/check-content.mjs fails if any is missing or altered, and fails on any LinkedIn URL not listed in 'profiles'. Unverified career details stay unpublished until approved.",
+  "statements": [
+    { "page": "index.html", "text": "MS in Data Science, University of Michigan–Dearborn — in progress, expected April 2027.", "approved": "2026-10-26" },
+    { "page": "index.html", "text": "LinkedIn: princeamaning", "approved": "2026-10-26" },
+    { "page": "index.html", "text": "GitHub: DexterAmaning", "approved": "2026-10-26" },
+    { "page": "projects/nkabom.html", "text": "NKABOM is a research prototype under active development. Its source repository is currently private. No patient data, synthetic records or credentials are published on this site.", "approved": "2026-10-26" }
+  ],
+  "profiles": [
+    "https://www.linkedin.com/in/princeamaning"
+  ]
+}

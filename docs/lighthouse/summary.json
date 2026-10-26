@@ -1,0 +1,258 @@
+[
+  {
+    "page": "index.html",
+    "formFactor": "mobile",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.9 s",
+    "lcp": "1.8 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 141 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  },
+  {
+    "page": "index.html",
+    "formFactor": "desktop",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.2 s",
+    "lcp": "0.4 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 141 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  },
+  {
+    "page": "projects/heart-disease-risk.html",
+    "formFactor": "mobile",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.9 s",
+    "lcp": "1.8 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 142 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  },
+  {
+    "page": "projects/heart-disease-risk.html",
+    "formFactor": "desktop",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.2 s",
+    "lcp": "0.4 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 217 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "image-delivery-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  },
+  {
+    "page": "projects/medicaid-diabetes-spending.html",
+    "formFactor": "mobile",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.9 s",
+    "lcp": "1.8 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 146 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  },
+  {
+    "page": "projects/medicaid-diabetes-spending.html",
+    "formFactor": "desktop",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.2 s",
+    "lcp": "0.4 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 192 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "image-delivery-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  },
+  {
+    "page": "projects/autism-aq10-screening.html",
+    "formFactor": "mobile",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.9 s",
+    "lcp": "1.8 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 144 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  },
+  {
+    "page": "projects/autism-aq10-screening.html",
+    "formFactor": "desktop",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.2 s",
+    "lcp": "0.4 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 212 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "image-delivery-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  },
+  {
+    "page": "projects/diabetes-risk.html",
+    "formFactor": "mobile",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.9 s",
+    "lcp": "1.8 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 142 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  },
+  {
+    "page": "projects/diabetes-risk.html",
+    "formFactor": "desktop",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.2 s",
+    "lcp": "0.4 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 217 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "image-delivery-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  },
+  {
+    "page": "projects/nkabom.html",
+    "formFactor": "mobile",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.9 s",
+    "lcp": "1.7 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 137 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  },
+  {
+    "page": "projects/nkabom.html",
+    "formFactor": "desktop",
+    "performance": 100,
+    "accessibility": 100,
+    "bestPractices": 100,
+    "seo": 100,
+    "fcp": "0.2 s",
+    "lcp": "0.4 s",
+    "cls": "0",
+    "tbt": "0 ms",
+    "transfer": "Total size was 137 KiB",
+    "failingAudits": [
+      "unminified-css",
+      "unused-css-rules",
+      "bf-cache",
+      "document-latency-insight",
+      "network-dependency-tree-insight",
+      "render-blocking-insight"
+    ]
+  }
+]

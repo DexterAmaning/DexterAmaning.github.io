@@ -1,0 +1,30 @@
+{
+  "siteUrl": "https://dexteramaning.github.io/",
+  "siteUrlConfirmed": true,
+  "sources": {
+    "heart": {
+      "repo": "DexterAmaning/heart-disease-risk-prediction",
+      "commit": "2cee4db7ca00c522ec617141ef1aad7b9d6ea919",
+      "file": "sources/heart-disease-risk-prediction.README.md",
+      "sha256": "30fe9ef50f0a3e1b7df6412f22ec47fc969a254b80cbf6c4595a240fb7c28b30"
+    },
+    "diabetes": {
+      "repo": "DexterAmaning/Diabtetes",
+      "commit": "69fc039b1d36c896afb4b77b48689f8339f1d8b4",
+      "file": "sources/Diabtetes.README.md",
+      "sha256": "ae6742bf91cc38da8174de5f14c39385b8769a595a3da1db47ffadbf58d14669"
+    },
+    "autism": {
+      "repo": "DexterAmaning/autism-screening-prediction",
+      "commit": "47172738bc3b00d89b383d1183f840adc9937f35",
+      "file": "sources/autism-screening-prediction.README.md",
+      "sha256": "f5f006eceee4b22f3187672f3c7e17b0502dc4f86735a307124203e871d85406"
+    },
+    "medicaid": {
+      "repo": "DexterAmaning/Forecasting-for-diabetes-using-prophet",
+      "commit": "f3696ec61c843de631e9c9d73cd016be9fe8c034",
+      "file": "sources/Forecasting-for-diabetes-using-prophet.README.md",
+      "sha256": "8f778dca0a206e156d0b66da0a5edae4a7f0a4a1062f8471062ce01868a53d86"
+    }
+  }
+}

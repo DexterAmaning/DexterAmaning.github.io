@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NKABOM Research Prototype | Prince Kwarteng Amaning</title>
+  <meta name="description" content="NKABOM is a synthetic-data oral-systemic health research prototype under active development: a rule-based, auditable screening-and-navigation workflow for dental settings. Not clinically validated and not for clinical use.">
+  <meta name="author" content="Prince Kwarteng Amaning">
+  <link rel="canonical" href="https://dexteramaning.github.io/projects/nkabom.html">
+  <meta name="theme-color" content="#0b2545">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prince Kwarteng Amaning">
+  <meta property="og:title" content="NKABOM: a synthetic-data oral-systemic health research prototype">
+  <meta property="og:description" content="An explainable, auditable screening-and-referral workflow for dental settings, built and tested on synthetic data only. Not clinically validated.">
+  <meta property="og:url" content="https://dexteramaning.github.io/projects/nkabom.html">
+  <meta property="og:image" content="https://dexteramaning.github.io/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Prince Kwarteng Amaning, healthcare data science portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#13315c"/><path d="M6 17h5l2.5-6 4 11 2.5-5H26" fill="none" stroke="#5fd0c7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Prince Kwarteng Amaning<small>Healthcare data science</small></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="../index.html#projects" aria-current="true">Projects</a></li>
+          <li><a href="../index.html#approach">Approach</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#education">Education</a></li>
+          <li><a href="../index.html#skills">Skills</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><span aria-current="page">NKABOM</span></li>
+          </ol>
+        </nav>
+        <p class="eyebrow">Oral-systemic health · Research prototype</p>
+        <h1 id="page-title">NKABOM: a synthetic-data oral-systemic health research prototype</h1>
+        <p class="finding">NKABOM is a synthetic-data oral-systemic health research prototype under active development. It explores whether a dental setting could run a screening and referral workflow that is <strong>explainable, traceable and careful never to imply a diagnosis</strong>. Every patient and event in it is synthetic.</p>
+        <dl class="facts">
+          <div><dt>Type</dt><dd>Research prototype software, under active development</dd></div>
+          <div><dt>Data</dt><dd>Synthetic data only; no real patients</dd></div>
+          <div><dt>Decision method</dt><dd>Versioned, deterministic rules plus recorded human review; no machine-learning model</dd></div>
+          <div><dt>Status</dt><dd>v2 workflow unreleased; not clinically validated; not for clinical use</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="container project-layout">
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">On this page</h2>
+        <ol>
+          <li><a href="#why">Why dental settings</a></li>
+          <li><a href="#what">What it is</a></li>
+          <li><a href="#workflow">Workflow</a></li>
+          <li><a href="#not">What it is not</a></li>
+          <li><a href="#engineering">Engineering</a></li>
+          <li><a href="#limitations">Limitations</a></li>
+          <li><a href="#access">Access</a></li>
+        </ol>
+      </nav>
+
+      <div class="project-body">
+        <div class="notice notice-caution">
+          <p><strong>Research prototype only. Synthetic data only. Not for clinical use.</strong> NKABOM is not a diagnostic system, does not estimate disease probability and is not intended for clinical decision-making. Engineering verification is not clinical validation.</p>
+        </div>
+
+        <section id="why" aria-labelledby="why-title">
+          <h2 id="why-title">Why dental settings</h2>
+          <div class="prose">
+            <p>People often visit a dentist more regularly than other health services, and oral and metabolic health are associated. That makes the dental visit a possible point of contact for health awareness and navigation to medical follow-up.</p>
+            <p>Doing that responsibly needs a workflow that is <strong>explainable</strong> (why a patient was or wasn't navigated to follow-up), <strong>traceable</strong> (what happened, when and in what order) and careful never to imply a diagnosis. NKABOM tests whether such a workflow can be built as software. It does not test whether the workflow improves health outcomes.</p>
+          </div>
+        </section>
+
+        <section id="what" aria-labelledby="what-title">
+          <h2 id="what-title">What it is</h2>
+          <div class="prose">
+            <p>A deterministic, rule-based research prototype with recorded human review. Screening inputs are checked by a validation gate, assessed by a versioned rule set with full rule provenance, and turned into a navigation recommendation that a reviewer must approve, modify, decline or return before any referral is created.</p>
+            <p>It is deliberately <strong>not</strong> a machine-learning system and contains no trained model. Decisions come from versioned rules and from recorded human decisions, so every outcome can be traced back to the rule and the reviewer that produced it.</p>
+          </div>
+        </section>
+
+        <section id="workflow" aria-labelledby="workflow-title">
+          <h2 id="workflow-title">Workflow (v2, unreleased, on synthetic data)</h2>
+          <p class="prose">The steps below are implemented in the version 2 workflow, which is still in development and hasn't been released. The released version 1 is an earlier, simpler baseline.</p>
+          <ol class="prose">
+            <li>Synthetic patient cohort and a simulated awareness campaign, in which nothing is actually sent.</li>
+            <li>Synthetic waist-to-height ratio screening alongside oral-health and other indicators.</li>
+            <li><strong>Input-validation gate:</strong> missing, malformed, impossible or contradictory inputs give “screening incomplete” and are never routed.</li>
+            <li>Screening assessment by a versioned rule set, recorded as an append-only screening episode with rule provenance.</li>
+            <li>A navigation recommendation, stored as the system's recommendation.</li>
+            <li><strong>Clinician review:</strong> a synthetic reviewer approves, modifies, declines or returns the recommendation, and the review can't be altered afterwards.</li>
+            <li>A synthetic referral for metabolic evaluation, created only after an authorising review, followed by dental scheduling and a recorded evaluation outcome that closes the loop.</li>
+            <li>An append-only audit trail written with every change, plus read-only integrity checks and a chronological patient journey.</li>
+          </ol>
+        </section>
+
+        <section id="not" aria-labelledby="not-title">
+          <h2 id="not-title">What it is not</h2>
+          <ul class="prose">
+            <li>It doesn't diagnose or predict disease. Its outputs are navigation recommendations, not a diagnosis, a risk score or a disease probability.</li>
+            <li>It isn't clinically validated. Its rules are a research heuristic, and every rule, threshold and factor is still marked as needing an evidence source.</li>
+            <li>It isn't connected to real patients, real messaging, real referrals or real appointments.</li>
+          </ul>
+        </section>
+
+        <section id="engineering" aria-labelledby="engineering-title">
+          <h2 id="engineering-title">Engineering</h2>
+          <ul class="prose">
+            <li>Python application with a Streamlit interface and versioned database schema migrations.</li>
+            <li>Append-only audit log, written atomically with every change, with separate read-only integrity and audit verification.</li>
+            <li>Automated tests, including determinism and mutation checks, run on synthetic data.</li>
+            <li>Reference documentation of rules, data dictionary and architecture generated from the code.</li>
+          </ul>
+        </section>
+
+        <section id="limitations" class="limits" aria-labelledby="limitations-title">
+          <h2 id="limitations-title">Limitations and appropriate use</h2>
+          <ul>
+            <li><strong>Not clinically validated, and not a diagnostic system.</strong> Validation would need a separately designed, ethically approved study.</li>
+            <li><strong>Under active development.</strong> The v2 workflow described here is unreleased and may change.</li>
+            <li><strong>No performance metrics are reported.</strong> NKABOM makes no predictions, so there are no model performance figures to report.</li>
+            <li><strong>Synthetic data only.</strong> No conclusion about real patients, uptake or health outcomes can be drawn from it.</li>
+            <li><strong>Rules need evidence.</strong> The screening rules and thresholds are prototype heuristics awaiting evidence sources.</li>
+            <li><strong>Not implemented:</strong> an outcome dashboard, equity stratification, authentication, interoperability with clinical systems, a separate oral-examination step and patient-friendly explanations.</li>
+          </ul>
+        </section>
+
+        <section id="access" aria-labelledby="access-title">
+          <h2 id="access-title">Source code and access</h2>
+          <div class="prose">
+            <p>NKABOM is a research prototype under active development. Its source repository is currently private. No patient data, synthetic records or credentials are published on this site.</p>
+          </div>
+        </section>
+
+        <nav class="pager" aria-label="More projects">
+          <a href="diabetes-risk.html"><span>Previous</span>Type 2 diabetes risk model</a>
+          <a class="next" href="heart-disease-risk.html"><span>Next</span>Coronary artery disease risk model</a>
+        </nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <p><strong>Research and education only.</strong> Nothing on this site is a clinical, diagnostic or screening tool, and no model shown here has been clinically validated.</p>
+        <p>© 2026 Prince Kwarteng Amaning. All rights reserved.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="../index.html#projects">All projects</a></li>
+        <li><a href="https://github.com/DexterAmaning">GitHub</a></li>
+        <li><a href="#main">Back to top</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

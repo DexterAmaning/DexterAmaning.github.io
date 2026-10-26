@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Social preview template</title>
+  <style>
+    @font-face { font-family: Inter; src: url("../site/assets/fonts/inter-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+    @font-face { font-family: "Source Serif 4"; src: url("../site/assets/fonts/source-serif-4-latin-wght-normal.woff2") format("woff2"); font-weight: 200 900; }
+    html, body { margin: 0; width: 1200px; height: 630px; }
+    body {
+      box-sizing: border-box;
+      padding: 72px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #f2f6fb;
+      font-family: Inter, sans-serif;
+      background:
+        radial-gradient(900px 500px at 92% -10%, rgb(0 140 132 / 38%), transparent 60%),
+        linear-gradient(180deg, #0b2545 0%, #13315c 100%);
+    }
+    .eyebrow { color: #6fd8cf; font-weight: 650; font-size: 24px; letter-spacing: 0.14em; text-transform: uppercase; }
+    h1 { font-family: "Source Serif 4", serif; font-weight: 600; font-size: 84px; line-height: 1.05; margin: 20px 0 24px; }
+    p { font-size: 30px; line-height: 1.4; color: #c3d0e0; margin: 0; max-width: 960px; }
+    .foot { display: flex; align-items: center; gap: 18px; font-size: 24px; color: #c3d0e0; }
+    svg { width: 56px; height: 56px; }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="eyebrow">Healthcare data science · Clinical background</div>
+    <h1>Prince Kwarteng Amaning</h1>
+    <p>Leakage-free, calibrated and reproducible healthcare models, with limitations stated beside every result.</p>
+  </div>
+  <div class="foot">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0b2545" stroke="#5fd0c7" stroke-opacity=".4"/><path d="M6 17h5l2.5-6 4 11 2.5-5H26" fill="none" stroke="#5fd0c7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Case studies in cardiology, diabetes, autism screening and drug spending
+  </div>
+</body>
+</html>
