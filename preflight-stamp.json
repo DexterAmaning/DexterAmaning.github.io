@@ -1,6 +1,6 @@
 {
   "note": "Written by `npm run preflight` after all checks passed, including the required local private-term scan. The Pages workflow refuses to deploy if the published files no longer match.",
-  "created": "2026-10-26T19:42:35.038Z",
+  "created": "2026-10-27T13:20:27.880Z",
   "files": 55,
-  "sha256": "fd4832534b9702d4a83a7f8cd4cd929bfb0bf37fe4369e541d87324ce5087807"
+  "sha256": "234ab04e594af0b852f33df4cf9c0f17f4c2dae2f94f9e0531a5626f48a5e1b3"
 }
