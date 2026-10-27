@@ -2,12 +2,12 @@
 
 A static professional portfolio: plain HTML, CSS and one small JavaScript file. There's no build step, no framework and no third-party requests at runtime. Fonts are self-hosted and there are no analytics.
 
-**Status:** local only. It hasn't been deployed or pushed. It's prepared for `https://dexteramaning.github.io/`. Deployment is blocked on purpose until every item listed by `npm run check:approvals` is resolved and a local `npm run preflight` has passed. The owner's decision records are kept outside this repository.
+**Status:** published at `https://dexteramaning.github.io/` through a manually triggered GitHub Pages workflow. Subsequent changes require the repository checks, owner approvals, and a fresh successful local `npm run preflight` before deployment. The owner's private decision records remain outside this repository.
 
 ## Layout
 
 ```
-site/                     the published root (what GitHub Pages would serve)
+site/                     the published root (served by GitHub Pages)
   index.html              home: projects, approach, about, education, skills, contact
   projects/*.html         one case-study page per project (5)
   404.html, robots.txt, sitemap.xml, .nojekyll
@@ -21,7 +21,7 @@ content/owner-approved.json  statements approved by the owner (degree status, pr
 site.config.json          site URL and the pinned commit and SHA-256 of each source
 scripts/                  checks, local server, screenshots, preflight stamp
 docs/                     audit, traceability matrix, deployment checklist, Lighthouse summary
-preflight-stamp.json      written by a successful `npm run preflight` (absent until then)
+preflight-stamp.json      fingerprint written by a successful local `npm run preflight`
 .github/workflows/        checks.yml (checks only) and pages.yml (manual deploy, gated)
 COPYRIGHT.md              copyright notice and third-party licences
 ```
